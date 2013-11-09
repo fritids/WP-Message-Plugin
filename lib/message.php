@@ -17,7 +17,7 @@ class Message {
 	 */
 	private $sentDate;
 	
-	function getFrom(){
+	function getFrom() {
 		return $this->from;
 	}
 	
