@@ -1,5 +1,11 @@
 <?php
 class Message {
+	
+	/**
+	 * Message ID
+	 */
+	private $id;
+	
 	/**
 	 * Id of the person who sends the message
 	 */
@@ -16,6 +22,10 @@ class Message {
 	 * The date on which the Message was sent.
 	 */
 	private $sentDate;
+	
+	function getId(){
+		return $this->id;
+	}
 	
 	function getFrom() {
 		return $this->from;

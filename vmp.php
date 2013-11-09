@@ -32,21 +32,9 @@ require_once( plugin_dir_path( __FILE__ ) . 'vmp-admin.class.php' );
  * Register hooks that are fired when the plugin is activated or deactivated.
  * When the plugin is deleted, the uninstall.php file is loaded.
  *
- * TODO:
- *
- * - replace Plugin_Name with the name of the class defined in
- *   `class-plugin-name.php`
  */
 register_activation_hook( __FILE__, array( 'vmp', 'activate' ) );
 register_deactivation_hook( __FILE__, array( 'vmp', 'deactivate' ) );
 
-/*
- * TODO:
- *
- * - replace Plugin_Name with the name of the class defined in
- *   `class-plugin-name.php`
- * - replace Plugin_Name_Admin with the name of the class defined in
- *   `class-plugin-name-admin.php`
- */
 add_action( 'plugins_loaded', array( 'vmp', 'get_instance' ) );
-add_action( 'plugins_loaded', array( 'vmp', 'get_instance' ) );
+add_action( 'plugins_loaded', array( 'vmp_admin', 'get_instance' ) );
