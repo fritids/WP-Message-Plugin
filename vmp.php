@@ -27,7 +27,8 @@ if ( ! defined( 'WPINC' ) ) {
 
 require_once( plugin_dir_path( __FILE__ ) . 'vmp.class.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'vmp-admin.class.php' );
-
+require_once( plugin_dir_path( __FILE__ ) . 'lib/message.php' );
+require_once( plugin_dir_path( __FILE__ ) . 'lib/services/messageService.php' ); 
 /*
  * Register hooks that are fired when the plugin is activated or deactivated.
  * When the plugin is deleted, the uninstall.php file is loaded.

@@ -1,7 +1,7 @@
 <?php
 /**
  *
- * @package   Varun's Message Plugin
+ * @package   vmp
  * @author    Varun Srinivas<varun@varun1505.com>
  * @license   GPL-2.0+
  * @link      http://varun1505.com
@@ -22,6 +22,7 @@
 			<li><a href="#sent">Sent Mail</a></li>
 		</ul>
 		<div id="inbox">
+			
 			<table class="widefat">
 				<thead>
 					<tr>
@@ -32,12 +33,18 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td>1</td>
-						<td>Varun Srinivas</td>
-						<td><a href="<?php echo admin_url("admin.php?page=vmp-msgs&view=single");?>">Lorem Ipsum Dolor Sit Amet.</a></td>
-						<td><a href="">View</a> | <a href="">Reply</a> | <a href="">Delete</a></td>
-					</tr>
+					<?php $i=1;?>
+					<?php foreach($inboxes as $msg) {?>
+						<tr>
+							<td><?php echo $i++;?></td>
+							<td><?php
+								$by = get_userdata($msg['msg_from']);
+								echo $by->data->display_name;
+							?></td>
+							<td><a href="<?php echo admin_url("admin.php?page=vmp-msgs&view=single&id=".$msg['id']);?>">Lorem Ipsum Dolor Sit Amet.</a></td>
+							<td><a href="">View</a> | <a href="">Reply</a> | <a href="">Delete</a></td>
+						</tr>
+					<?php } ?>
 				</tbody>
 				<tfoot>
 					<tr>
@@ -50,7 +57,7 @@
 			</table>
 		</div>
 		<div id="send">
-			<form action="">
+			<form action="<?php echo admin_url('admin.php?page=vmp-msgs&view=send-msg');?>" method="post">
 				<h3>Send Message</h3>
 				<table class="form-table">
 					<tbody>
@@ -58,7 +65,7 @@
 							<th><label for="to">Send To</label></th>
 							<td>
 								<?php $users = get_users(array('role' => 'subscriber'));?>
-								<select id="to" multiple="multiple" class="regular-text" style="width: 25em;">
+								<select name="msgTo[]" id="to" multiple="multiple" class="regular-text" style="width: 25em;">
 									<?php foreach($users as $user) { ?>
 										<option value="<?php echo $user->ID;?>"><?php echo $user->data->display_name;?></option>										
 									<?php } ?>
@@ -68,7 +75,7 @@
 						</tr>
 						<tr>
 							<th><label for="subject">Subject</label></th>
-							<td><input type="text" placeholder="Subject.." class="regular-text"></td>
+							<td><input name="subject" type="text" placeholder="Subject.." class="regular-text"></td>
 						</tr>
 						<tr>
 							<th><label for="message">Message</label></th>
@@ -78,7 +85,7 @@
 						</tr>
 						<tr>
 							<th></th>
-							<td><input type="submit" class="button-primary" value="Send"></td>
+							<td><input name="send-msg" type="submit" class="button-primary" value="Send"></td>
 						</tr>
 					</tbody>
 				</table>

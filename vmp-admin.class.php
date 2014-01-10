@@ -103,12 +103,40 @@ class Vmp_admin {
 	 */
 	public function display_plugin_admin_page() {
 		$view = isset($_GET['view'])?$_GET['view']:"home";
+		
+		$msgs = new MessageService();
+		$user = wp_get_current_user();
+		$inboxes = $msgs->getUserMessages($user->ID);
+		
 		switch ($view){
-			case 'home': include_once( 'views/admin/message.php' );
+			case 'home':include_once( 'views/admin/message.php' );
 						break;
-			case 'single': include_once( 'views/admin/single.php' );
+			case 'single':
+						$signle = $msgs->getMessage($_GET['id']);
+						include_once( 'views/admin/single.php' );
+						break;
+			case 'send-msg': $this->sendMessage();
 						break;
 			default: include_once( 'views/admin/message.php' );
 		}
+	}
+	
+	public function sendMessage(){
+		if(isset($_POST['send-msg'])) {
+			
+			$to = $_POST['msgTo'];
+			$msg = new Message();
+			$msg->setTo($to);
+			$currentUser = wp_get_current_user();
+			$msg->setFrom($currentUser->ID);
+			$msg->setSubject($_POST['subject']);
+			$msg->setMessage($_POST['message']);			
+			$msg->send();
+			$this->redirect(admin_url('admin.php?page=vmp-msgs'));
+		} 
+	}
+	
+	function redirect($url){
+		echo '<script>window.location.assign("'.$url.'");</script>';
 	}
 }
