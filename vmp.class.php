@@ -91,8 +91,6 @@ class Vmp {
 		
 		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 		dbDelta($sql);
-		//print_r();
-		//die();
 	}
 
 	/**

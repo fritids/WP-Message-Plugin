@@ -25,7 +25,7 @@ class Vmp_admin {
 	 * @since    1.0.0
 	 * @var      string
 	 */
-	protected $plugin_screen_hook_suffix = null;
+	protected $plugin_screen_hook_suffix = 'vmp-msgs';
 
 	
 	/**
@@ -68,35 +68,23 @@ class Vmp_admin {
 	 * @return    null    Return early if no settings page is registered.
 	 */
 	public function enqueue_admin_styles() {
-		
-		wp_enqueue_style( $this->plugin_slug .'-admin-styles', plugins_url( 'css/admin.css', __FILE__ ), array(), Vmp::VERSION );
-		if ( ! isset( $this->plugin_screen_hook_suffix ) ) {
-			return;
-		}
-
 		$screen = get_current_screen();
-		if ( $this->plugin_screen_hook_suffix == $screen->id ) {
-			wp_enqueue_style( $this->plugin_slug .'-admin-styles', plugins_url( 'css/admin.css', __FILE__ ), array(), Plugin_Name::VERSION );
+		if(strpos($screen->id,'vmp')) {
+			wp_enqueue_style( $this->plugin_slug .'-admin-styles', plugins_url( 'css/admin.css', __FILE__ ), array(), Vmp::VERSION );
+			wp_enqueue_style( $this->plugin_slug .'-jquery-ui', plugins_url( 'css/jquery-ui.css', __FILE__ ), array(), Vmp::VERSION );
 		}
-
 	}
 
 	/**
-	 * Register and enqueue admin-specific JavaScript.
+	 * Register and enqueue admin-specific JavaScript only for plugin pages
 	 * @since     1.0.0
-	 * @return    null    Return early if no settings page is registered.
+	 * @return    null
 	 */
 	public function enqueue_admin_scripts() {
-
-		if ( ! isset( $this->plugin_screen_hook_suffix ) ) {
-			return;
-		}
-
 		$screen = get_current_screen();
-		if ( $this->plugin_screen_hook_suffix == $screen->id ) {
-			wp_enqueue_script( $this->plugin_slug . '-admin-script', plugins_url( 'js/admin.js', __FILE__ ), array( 'jquery' ), Plugin_Name::VERSION );
+		if(strpos($screen->id,'vmp')) {
+			wp_enqueue_script( $this->plugin_slug . '-admin-script', plugins_url( 'js/admin.js', __FILE__ ), array( 'jquery' , 'jquery-ui-tabs' ), Vmp::VERSION );
 		}
-
 	}
 
 	/**
@@ -112,6 +100,13 @@ class Vmp_admin {
 	 * @since    1.0.0
 	 */
 	public function display_plugin_admin_page() {
-		include_once( 'views/admin.php' );
+		$view = isset($_GET['view'])?$_GET['view']:"home";
+		switch ($view){
+			case 'home': include_once( 'views/admin/message.php' );
+						break;
+			case 'single': include_once( 'views/admin/single.php' );
+						break;
+			default: include_once( 'views/admin/message.php' );
+		}
 	}
 }
