@@ -56,7 +56,15 @@
 					<tbody>
 						<tr>
 							<th><label for="to">Send To</label></th>
-							<td><input type="text" placeholder="To.." class="regular-text"> <span class="description">Start Typing and Select user from the DropDown</span></td>
+							<td>
+								<?php $users = get_users(array('role' => 'subscriber'));?>
+								<select id="to" multiple="multiple" class="regular-text" style="width: 25em;">
+									<?php foreach($users as $user) { ?>
+										<option value="<?php echo $user->ID;?>"><?php echo $user->data->display_name;?></option>										
+									<?php } ?>
+								</select>
+								<span class="description">Start Typing and Select user from the DropDown</span>
+							</td>
 						</tr>
 						<tr>
 							<th><label for="subject">Subject</label></th>
@@ -65,7 +73,7 @@
 						<tr>
 							<th><label for="message">Message</label></th>
 							<td>
-								<?php wp_editor("", "message");?>
+								<?php wp_editor("", "message",array('textarea_rows' => 5));?>
 							</td>
 						</tr>
 						<tr>

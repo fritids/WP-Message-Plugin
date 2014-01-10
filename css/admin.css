@@ -2,3 +2,7 @@
 #icon-messages {
     background: transparent url(../assets/messages-32.png) no-repeat;
 }
+
+select#to {
+	width: 200px;
+}

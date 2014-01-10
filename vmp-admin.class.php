@@ -72,6 +72,7 @@ class Vmp_admin {
 		if(strpos($screen->id,'vmp')) {
 			wp_enqueue_style( $this->plugin_slug .'-admin-styles', plugins_url( 'css/admin.css', __FILE__ ), array(), Vmp::VERSION );
 			wp_enqueue_style( $this->plugin_slug .'-jquery-ui', plugins_url( 'css/jquery-ui.css', __FILE__ ), array(), Vmp::VERSION );
+			wp_enqueue_style( $this->plugin_slug .'-select2-styles', plugins_url( 'css/select2.css', __FILE__ ), array(), Vmp::VERSION );
 		}
 	}
 
@@ -83,7 +84,8 @@ class Vmp_admin {
 	public function enqueue_admin_scripts() {
 		$screen = get_current_screen();
 		if(strpos($screen->id,'vmp')) {
-			wp_enqueue_script( $this->plugin_slug . '-admin-script', plugins_url( 'js/admin.js', __FILE__ ), array( 'jquery' , 'jquery-ui-tabs' ), Vmp::VERSION );
+			wp_enqueue_script( $this->plugin_slug . '-select2-script', plugins_url( 'js/select2.min.js', __FILE__ ), array( 'jquery' ), Vmp::VERSION );
+			wp_enqueue_script( $this->plugin_slug . '-admin-script', plugins_url( 'js/admin.js', __FILE__ ), array( 'jquery' , 'jquery-ui-tabs' , $this->plugin_slug . '-select2-script' ), Vmp::VERSION );			
 		}
 	}
 
