@@ -46,8 +46,16 @@ class Vmp_admin {
 
 		// Add the options page and menu item.
 		add_action( 'admin_menu', array( $this, 'add_plugin_admin_menu' ) );
+		add_action('admin_init',array($this,'register_settings'));
 	}
-
+	
+	/**
+	 * Register the settings for Messages
+	 */
+	function register_settings(){
+		register_setting( 'vmp_messages', 'vmp_user_roles');
+	}
+	
 	/**
 	 * Return an instance of this class.
 	 * @since     1.0.0
@@ -95,10 +103,22 @@ class Vmp_admin {
 	 */
 	public function add_plugin_admin_menu() {
 		add_menu_page('Messages', 'Messages', 'read', 'vmp-msgs',array($this,'display_plugin_admin_page'),plugins_url('assets/messages-16.png',__FILE__),20);
+		if(is_admin()){ 
+			add_submenu_page('vmp-msgs', 'Message Settings', 'Settings', 'activate_plugins', 'vmp-settings',array($this,'settings'));
+		}
 	}
 
+	public function settings(){
+		
+		if(isset($_POST['submit'])){
+			unset($_POST['submit']);
+			update_option('vmp_user_roles', serialize($_POST));
+		}
+		include_once('views/admin/settings.php');
+	}
+	
 	/**
-	 * Render the settings page for this plugin.
+	 * Render the Messages Page
 	 * @since    1.0.0
 	 */
 	public function display_plugin_admin_page() {

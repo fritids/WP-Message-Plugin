@@ -64,7 +64,14 @@
 						<tr>
 							<th><label for="to">Send To</label></th>
 							<td>
-								<?php $users = get_users(array('role' => 'subscriber'));?>
+								<?php $roles = unserialize(get_option('vmp_user_roles'));?>
+								<?php $users = array();?>
+								<?php foreach($roles as $role=>$val) {
+									$temp = get_users(array('role' => $role));
+									foreach($temp as $user){
+										$users[] = $user;
+									}
+								} ?>
 								<select name="msgTo[]" id="to" multiple="multiple" class="regular-text" style="width: 25em;">
 									<?php foreach($users as $user) { ?>
 										<option value="<?php echo $user->ID;?>"><?php echo $user->data->display_name;?></option>										
