@@ -137,13 +137,14 @@ class Vmp_admin {
 						break;
 			case 'send-msg': $this->sendMessage();
 						break;
+			case 'delete' : $this->deleteMessage();
+						break;
 			default: include_once( 'views/admin/message.php' );
 		}
 	}
 	
 	public function sendMessage(){
 		if(isset($_POST['send-msg'])) {
-			
 			$to = $_POST['msgTo'];
 			$msg = new Message();
 			$msg->setTo($to);
@@ -154,6 +155,14 @@ class Vmp_admin {
 			$msg->send();
 			$this->redirect(admin_url('admin.php?page=vmp-msgs'));
 		} 
+	}
+	
+	public function deleteMessage(){
+		if(isset($_GET['id'])){
+			$msgService = new MessageService();
+			$msgService->deleteMessage($_GET['id']);
+			$this->redirect(admin_url('admin.php?page=vmp-msgs'));
+		}
 	}
 	
 	function redirect($url){

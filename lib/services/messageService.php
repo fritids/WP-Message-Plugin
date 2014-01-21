@@ -48,9 +48,14 @@ class MessageService {
 		return $this->convertToMessage($message[0]);
 	}
 	
+	function deleteMessage($id){
+		global $wpdb;
+		$wpdb->delete('wp_vmp_messages', array('id' => $id));
+	}
 	
 	function convertToMessage($msg){
 		$message = new Message();
+		$message->setId($msg['id']);
 		$message->setDate($msg['sent_date']);
 		$message->setFrom($msg['msg_from']);
 		$message->setMessage($msg['message']);

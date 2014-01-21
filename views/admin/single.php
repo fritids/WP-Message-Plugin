@@ -25,7 +25,7 @@
 				<?php echo $single->getMessage();?>
 			</div>
 			<div class="options">
-				<a href="">Reply</a> | <a href="">Reply to All</a> | <a href="">Delete</a>
+				<a href="">Reply</a> | <a href="<?php echo admin_url('admin.php?page=vmp-msgs&view=delete&id='.$single->getId());?>">Delete</a>
 			</div>
 			<hr/>
 		</div>
