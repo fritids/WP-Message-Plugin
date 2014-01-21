@@ -84,6 +84,7 @@ class Vmp {
 			id mediumint(9) NOT NULL AUTO_INCREMENT,
 			msg_from int(11) NOT NULL,
 			msg_to VARCHAR(255) NOT NULL,
+		  	subject VARCHAR(255) NOT NULL,
 			message TEXT NOT NULL,
 			sent_date TIMESTAMP,
 			PRIMARY KEY  (id)

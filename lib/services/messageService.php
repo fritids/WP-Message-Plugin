@@ -20,6 +20,7 @@ class MessageService {
 			$wpdb->insert('wp_vmp_messages',array(
 				'msg_from' => $message->getFrom(),
 				'msg_to' => $user,
+				'subject' => $message->getSubject(),
 				'message' => $message->getMessage(),
 				'sent_date' => $message->getDate(),
 			));

@@ -41,7 +41,7 @@
 								$by = get_userdata($msg['msg_from']);
 								echo $by->data->display_name;
 							?></td>
-							<td><a href="<?php echo admin_url("admin.php?page=vmp-msgs&view=single&id=".$msg['id']);?>">Lorem Ipsum Dolor Sit Amet.</a></td>
+							<td><a href="<?php echo admin_url("admin.php?page=vmp-msgs&view=single&id=".$msg['id']);?>"><?php echo $msg['subject'];?></a></td>
 							<td><a href="">View</a> | <a href="">Reply</a> | <a href="">Delete</a></td>
 						</tr>
 					<?php } ?>
