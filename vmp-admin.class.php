@@ -132,7 +132,7 @@ class Vmp_admin {
 			case 'home':include_once( 'views/admin/message.php' );
 						break;
 			case 'single':
-						$signle = $msgs->getMessage($_GET['id']);
+						$single = $msgs->getMessage($_GET['id']);
 						include_once( 'views/admin/single.php' );
 						break;
 			case 'send-msg': $this->sendMessage();
